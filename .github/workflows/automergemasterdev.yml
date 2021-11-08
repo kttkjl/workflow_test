@@ -26,6 +26,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          ref: develop
 
       - name: Set Git config
         run: |
@@ -36,7 +38,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3.11.0
         with:
           branch: merge-master-to-dev
-          base: develop
+          base: master
           title: update develop from master
           commit-message: auto PR master to develop
           delete-branch: true
