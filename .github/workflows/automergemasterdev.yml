@@ -26,16 +26,22 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          ref: develop
 
       - name: Set Git config
         run: |
             git config --local user.email "actions@github.com"
             git config --local user.name "Github Actions"
 
-      - name: Make new intermediate branch
+      - name: Reset master branch
         run: |
-            git fetch --unshallow
-            git checkout develop
-            git pull
-            git merge --no-ff master -m "Auto-merge master to dev"
-            git push
+          git fetch origin master:master
+          git reset --hard master
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3.11.0
+        with:
+          branch: merge-master-to-dev
+          title: update develop from master
+          commit-message: auto PR master to develop
