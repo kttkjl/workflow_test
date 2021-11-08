@@ -40,7 +40,8 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3.11.0
         with:
-          branch: develop
+          branch: merge-master-to-dev
+          base: develop
           title: update develop from master
           commit-message: auto PR master to develop
           delete-branch: true
