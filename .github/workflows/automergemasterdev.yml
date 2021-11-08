@@ -32,11 +32,6 @@ jobs:
             git config --local user.email "actions@github.com"
             git config --local user.name "Github Actions"
 
-      - name: intermediate branch
-        run: |
-            git fetch --unshallow
-            git checkout -b "merge-master-to-dev"
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3.11.0
         with:
