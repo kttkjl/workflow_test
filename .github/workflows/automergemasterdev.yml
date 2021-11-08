@@ -32,10 +32,15 @@ jobs:
             git config --local user.email "actions@github.com"
             git config --local user.name "Github Actions"
 
-      - name: Make new intermediate branch
+      - name: intermediate branch
         run: |
             git fetch --unshallow
-            git checkout develop
-            git pull
-            git merge --no-ff master -m "Auto-merge master to dev"
-            git push
+            git checkout -b "merge-master-to-dev"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3.11.0
+        with:
+          branch: develop
+          title: update develop from master
+          commit-message: auto PR master to develop
+          delete-branch: true
