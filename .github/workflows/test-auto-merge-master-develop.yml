@@ -47,7 +47,7 @@ jobs:
 
       - name: Test output version
         run: |
-          echo "Setting PR to version: ${ steps.versioning.outputs.tag }"
+          echo "Setting PR to version: ${{ steps.versioning.outputs.tag }}"
 
 #       - name: Create Pull Request
 #         uses: peter-evans/create-pull-request@v3.11.0
