@@ -39,9 +39,19 @@ jobs:
           git fetch origin master:master
           git reset --hard master
 
+      - name: Read and set version
+        id: versioning
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          echo ::set-output name=tag::${PACKAGE_VERSION}
+
+      - name: Test output version
+        run: |
+          echo "Setting PR to version: ${{ steps.versioning.outputs.tag }}"
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3.11.0
         with:
-          branch: merge-master-to-dev-${{ github.event.release.tag_name }}
-          title: update develop from master-${{ github.event.release.tag_name }}
+          branch: merge-master-to-dev-${{ steps.versioning.outputs.tag }}
+          title: update develop from master-${{ steps.versioning.outputs.tag }}
           commit-message: auto PR master to develop
