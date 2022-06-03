@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Auto-merge-master-develop
+name: test-auto-merge-master-develop
 
 # Controls when the workflow will run
 on:
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # If master pull request is merged 
-    if: github.event.pull_request.merged == true
+    #if: github.event.pull_request.merged == true
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -45,9 +45,13 @@ jobs:
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
           echo ::set-output name=tag::${PACKAGE_VERSION}
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3.11.0
-        with:
-          branch: merge-master-to-dev-${{ steps.versioning.outputs.tag }}
-          title: update develop from master-${{ steps.versioning.outputs.tag }}
-          commit-message: auto PR master to develop
+      - name: Test output version
+        run: |
+          echo "Setting PR to version: ${{ steps.versioning.outputs.tag }}"
+
+#       - name: Create Pull Request
+#         uses: peter-evans/create-pull-request@v3.11.0
+#         with:
+#           branch: merge-master-to-dev-${{ github.event.release.tag_name }}
+#           title: update develop from master-${{ github.event.release.tag_name }}
+#           commit-message: auto PR master to develop
