@@ -42,7 +42,7 @@ jobs:
       - name: Read and set version
         id: versioning
         run: |
-          PACKAGE_VERSION=${node -p "require('./package.json').version"}
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
           echo ::set-output name=tag::${PACKAGE_VERSION}
 
       - name: Test output version
