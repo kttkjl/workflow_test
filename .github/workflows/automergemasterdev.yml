@@ -42,6 +42,6 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3.11.0
         with:
-          branch: merge-master-to-dev
-          title: update develop from master
+          branch: merge-master-to-dev-${{ github.event.release.tag_name }}
+          title: update develop from master-${{ github.event.release.tag_name }}
           commit-message: auto PR master to develop
