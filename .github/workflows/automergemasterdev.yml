@@ -45,10 +45,6 @@ jobs:
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
           echo ::set-output name=tag::${PACKAGE_VERSION}
 
-      - name: Test output version
-        run: |
-          echo "Setting PR to version: ${{ steps.versioning.outputs.tag }}"
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3.11.0
         with:
